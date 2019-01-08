@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>End of round {{ gameSession.round$ | async }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item *ngFor="let player of roundPlayerPoints">
+      <ion-grid>
+        <ion-row justify-content-between>
+          <ion-col align-self-center>
+            <ion-text color="primary" text-center>
+              <h2>{{ player.name }}</h2>
+            </ion-text>
+          </ion-col>
+          <ion-col align-self-center>
+            <div text-center>
+              <ion-input type="number" [(ngModel)]="player.points"></ion-input>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row justify-content-between>
+      <ion-col size="3">
+        <div>
+          <ion-button expand="block" color="warning" (click)="cancel()">Back</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div>
+          <ion-button expand="block" color="primary" (click)="ok()">OK</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

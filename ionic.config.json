@@ -1,5 +1,7 @@
 {
   "name": "coonCan",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

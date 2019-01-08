@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>New Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <ion-list>
+    <ion-item *ngFor="let player of players; let i = index;">
+      <ion-grid no-padding>
+        <ion-row>
+          <ion-col>
+            <ion-input placeholder="Player name" [value]="player.name" [(ngModel)]="players[i].name"></ion-input>
+          </ion-col>
+          <ion-col size="4">
+            <ion-button [disabled]="i === 0" color="danger" (click)="removePlayer(i)">Remove</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="addPlayer()">Add Player</ion-button>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row justify-content-between>
+      <ion-col size="3">
+        <div>
+          <ion-button expand="block" color="warning" (click)="back()">Back</ion-button>
+        </div>
+      </ion-col>
+      <ion-col size="3">
+        <div>
+          <ion-button expand="block" color="primary" (click)="ready()">Ready</ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
