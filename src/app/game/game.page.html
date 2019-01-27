@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Game {{ gameSession.sessionNo$ | async }} - Round {{ gameSession.round$ | async }}
+      Game {{ gameNo$ | async }} - Round {{ roundNo$ | async }}
       <ion-button float-right color="primary" size="small" (click)="endRound()">End round</ion-button>
     </ion-title>
   </ion-toolbar>
@@ -10,7 +10,7 @@
 <ion-content>
 
   <ion-list>
-    <ion-item *ngFor="let player of gameSession.players$ | async">
+    <ion-item *ngFor="let player of players$ | async">
       <ion-grid>
         <ion-row justify-content-between>
           <ion-col align-self-center>

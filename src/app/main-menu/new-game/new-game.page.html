@@ -11,7 +11,7 @@
       <ion-grid no-padding>
         <ion-row>
           <ion-col>
-            <ion-input placeholder="Player name" [value]="player.name" [(ngModel)]="players[i].name"></ion-input>
+            <ion-input placeholder="Player name" [value]="player.name" [(ngModel)]="player.name"></ion-input>
           </ion-col>
           <ion-col size="4">
             <ion-button [disabled]="i === 0" color="danger" (click)="removePlayer(i)">Remove</ion-button>

@@ -1,38 +1,21 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { GameSessionService } from '../game-session.service';
-import { Player } from '../player';
-import { NewGamePage } from './new-game/new-game.page';
+import { State } from '../state/app.state';
+import * as MainMenuActions from './state/main-menu.actions';
 
 @Component({
   selector: 'app-main-menu',
   templateUrl: 'main-menu.page.html',
-  styleUrls: ['main-menu.page.scss']
+  styleUrls: ['main-menu.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainMenuPage {
 
   constructor(
-    private _modalController: ModalController,
-    private _gameSession: GameSessionService,
-    private _router: Router) { }
-
-  async presentModal() {
-    const modal = await this._modalController.create({
-      component: NewGamePage
-    });
-    await modal.present();
-    const result = await modal.onDidDismiss();
-    if (!result.data) {
-      return;
-    }
-
-    this._gameSession.newGameSession(result.data as Player[]);
-    this._router.navigate(['/tabs/game']);
-  }
+    private store: Store<State>) { }
 
   newGame() {
-    this.presentModal();
+    this.store.dispatch(new MainMenuActions.ShowModalNewGame());
   }
 }

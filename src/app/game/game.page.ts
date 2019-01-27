@@ -1,22 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import { GameSessionService } from '../game-session.service';
-import { EndRoundPage } from './end-round/end-round.page';
+import { Player } from '../player';
+import { getGameNo, getPlayers, getRoundNo } from '../state/app.selectors';
+import { State } from '../state/app.state';
+import { ShowModalEndRound } from './state/game.actions';
 
 @Component({
   selector: 'app-game',
   templateUrl: 'game.page.html',
-  styleUrls: ['game.page.scss']
+  styleUrls: ['game.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GamePage implements OnInit {
 
+  players$: Observable<Player[]>;
+  gameNo$: Observable<number>;
+  roundNo$: Observable<number>;
+
   constructor(
-    private _modalController: ModalController,
-    public gameSession: GameSessionService) {
+    private _store: Store<State>) {
   }
 
   ngOnInit(): void {
+    this.players$ = this._store.select(getPlayers);
+    this.gameNo$ = this._store.select(getGameNo);
+    this.roundNo$ = this._store.select(getRoundNo);
   }
 
   ionViewWillEnter() {
@@ -32,11 +42,7 @@ export class GamePage implements OnInit {
     return 'danger';
   }
 
-  async endRound() {
-    const modal = await this._modalController.create({
-      component: EndRoundPage
-    });
-    await modal.present();
-    await modal.onDidDismiss();
+  endRound() {
+    this._store.dispatch(new ShowModalEndRound());
   }
 }
